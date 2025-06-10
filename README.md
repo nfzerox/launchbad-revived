@@ -13,19 +13,3 @@ https://github.com/doraorak/Dylinject
 
 # Usage 
 inject the dylib to dock
-
-# Limitations
-`Shortcuts/Features that "Show desktop" (move windows to edges so the desktop is visible) break the dock for a while when used with this.`
-
-
-`Long pressing icons dont show their windows.`
-
-
-`Mission control (the feature that lists every window) doesn't work.`
-
-`Clicking launchpad icon again doesn't exit the launchpad`
-
-
-
-
-
