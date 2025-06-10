@@ -21,7 +21,10 @@ inject the dylib to dock
 `Long pressing icons dont show their windows.`
 
 
-`mission control (the feature that lists every window) doesn't work.`
+`Mission control (the feature that lists every window) doesn't work.`
+
+`Clicking launchpad icon again doesn't exit the launchpad`
+
 
 
 
