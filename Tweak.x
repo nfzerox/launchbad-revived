@@ -6,11 +6,13 @@
 
 void (*_MSHookFunction) (void*, void*, void*);
 
+bool (*orig) (char*, char*);
+
 bool _os_feature_enabled_impl_hook(char* a, char* b){
     if (!strcmp(b, "SpotlightPlus"))
     return false;
     else
-    return true;
+    return orig(a, b);
 }
 
 %ctor{
@@ -19,7 +21,7 @@ bool _os_feature_enabled_impl_hook(char* a, char* b){
 
     _MSHookFunction = dlsym(handle, "MSHookFunction");
 
-    _MSHookFunction(dlsym(ffh, "_os_feature_enabled_impl"), _os_feature_enabled_impl_hook, NULL);
+    _MSHookFunction(dlsym(ffh, "_os_feature_enabled_impl"), _os_feature_enabled_impl_hook, &orig);
 
     os_log(OS_LOG_DEFAULT, "[tweak][launchbad] end");
 
