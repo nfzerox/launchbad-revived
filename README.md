@@ -7,6 +7,8 @@ Hooks a feature flag to bring back old launchpad
 # Requirements
 -arm64e-preview-abi=1 or amfi_get_out_of_my_way=1 boot args (which also means disabled SIP and reduced/permissive security)
 
+having the file /Library/TweakInject/libEllekit.dylib 
+
 https://github.com/doraorak/Dylinject
 
 
