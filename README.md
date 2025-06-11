@@ -1,3 +1,17 @@
+# Update
+This terminal command also has the same effect, which is better as it doesn't require dylib injection so it works with SIP
+
+``` 
+sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
+sudo defaults write /Library/Preferences/FeatureFlags/Domain/SpotlightUI.plist SpotlightPlus -dict Enabled -bool false
+```
+
+
+
+thanks to @asentientbot
+
+
+
 # Image
 <img width="1512" alt="image" src="https://github.com/user-attachments/assets/79a33d39-59c9-4db2-8453-8f4acf447a7a" />
 
