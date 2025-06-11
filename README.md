@@ -6,6 +6,7 @@ sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
 sudo defaults write /Library/Preferences/FeatureFlags/Domain/SpotlightUI.plist SpotlightPlus -dict Enabled -bool false
 ```
 
+after running these reboot
 
 
 thanks to @asentientbot
