@@ -33,6 +33,6 @@ inject the dylib to dock
 using www.theos.dev -> `make clean package`
 
 # Limitations
-clicking launchpad icon again doesn't exit launchpad
+clicking launchpad icon again doesn't exit launchpad (terminal command doesn't seem to have this issue)
 
 
