@@ -33,6 +33,9 @@ inject the dylib to dock
 using www.theos.dev -> `make clean package`
 
 # Limitations
-clicking launchpad icon again doesn't exit launchpad (terminal command doesn't seem to have this issue)
+clicking launchpad icon again doesn't exit launchpad.
+FIX: Go into the applications folder and replace Apps.app with the original Launchpad.app
+
+(terminal command doesn't seem to have this issue)
 
 
