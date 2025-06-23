@@ -1,5 +1,5 @@
 # Update
-This terminal command also has the same effect, which is better as it doesn't require dylib injection so it works with SIP
+This terminal command also has the same effect, however you will lose the new Spotlight.
 
 ``` 
 sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
