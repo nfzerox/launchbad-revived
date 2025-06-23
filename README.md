@@ -29,8 +29,13 @@ https://github.com/doraorak/Dylinject
 # Usage 
 inject the dylib to dock
 
-# Building
-using www.theos.dev -> `make clean package`
+# Building using Theos
+
+The iOS frameworks don't provide IOKit headers so you'll need to use this to use the macOS ones.
+
+`mv $THEOS/vendor/include/{IOKit,IOKit_iOS}`
+
+`make clean package`
 
 # Limitations
 clicking launchpad icon again doesn't exit launchpad.
