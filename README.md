@@ -1,5 +1,5 @@
 # Update
-This terminal command also has the same effect, however you will lose the new Spotlight.
+This terminal command also has the same effect and doesn't require disabling SIP, however you will lose the new Spotlight.
 
 ``` 
 sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
