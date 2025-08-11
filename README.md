@@ -1,8 +1,10 @@
 # Compatibility
+
+```
 Macos 26 beta 1 - beta 3: everything works fine
 Macos 26 beta 4: spotlight doesn't work
-Macıs 26 beta 5 (and probably onwards): Dock, spotlight and launchpad doesn't work
-
+Macos 26 beta 5 (and probably onwards): Dock, spotlight and launchpad doesn't work
+```
 
 # Update
 This terminal command also has the same effect and doesn't require disabling SIP, however you will lose the new Spotlight.
