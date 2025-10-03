@@ -1,0 +1,101 @@
+#!/bin/sh
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+[ "$UID" -eq 0 ] || exec sudo "$0" "$@"
+
+if csrutil status | grep -q "disabled"; then
+    printf "✅ System Integrity Protection (SIP) is disabled.\n"
+else
+    printf 'For this to work, you need to turn off FileVault, then run `csrutil disable` and `csrutil authenticated-root disable` in recoveryOS.\n'
+    exit 1
+fi
+
+if csrutil authenticated-root status | grep -q "disabled"; then
+    printf "✅ Authenticated Root is disabled.\n"
+else
+    printf 'For this to work, you need to turn off FileVault, then run `csrutil authenticated-root disable` in recoveryOS.\n'
+    exit 1
+fi
+
+boot_volume=$(bless --info --getboot)
+diskutil unmount force ${boot_volume} > /dev/null 2>&1
+diskutil unmount force /tmp/live_mount > /dev/null 2>&1
+mkdir /tmp/live_mount  > /dev/null 2>&1
+mount -o nobrowse -t apfs ${boot_volume} /tmp/live_mount
+
+if [ -d "/private/tmp/live_mount/System/Library/CoreServices/Dock_backup.app" ]; then
+    printf "It appears that you have already modified Dock.app.\n"
+    read -r -p "Do you want to uninstall these modifications and restore to system defaults? [Y/n] " response </dev/tty
+    case "$response" in
+        [nN][oO]|[nN]) 
+            ;;
+        *)
+            bless --mount /tmp/live_mount --bootefi --last-sealed-snapshot </dev/tty
+            diskutil unmount force /tmp/live_mount > /dev/null 2>&1
+            read -r -p "Restart? [Y/n] " response2 </dev/tty
+            case "$response2" in
+                [nN][oO]|[nN]) 
+                    printf 'Changes will be applied after restart.\n'
+                    exit 0
+                    ;;
+                *)
+                    reboot
+                    ;;
+            esac
+            ;;
+    esac
+else
+    printf 'Backing up Dock.app...\n'
+    mv /private/tmp/live_mount/System/Library/CoreServices/Dock.app /private/tmp/live_mount/System/Library/CoreServices/Dock_backup.app
+fi
+
+# You can download and extract Dock.app and Launchpad.app from the IPSWs youself.
+# You can compare the shasum of your own extraction with what's in the repo, which matches.
+# You can also use your own .app bundles by placing them in ./assets.
+# https://theapplewiki.com/wiki/Beta_Firmware/Mac/26.x
+# https://theapplewiki.com/wiki/Keys:CheerSeed_25A5316i_(Mac15,12)
+# https://theapplewiki.com/wiki/Keys:CheerSeed_25A5306g_(iMac21,2)
+# https://updates.cdn-apple.com/2025SummerSeed/fullrestores/082-89871/D95E6C0D-147C-4F0D-878B-A4534D9B4763/UniversalMac_26.0_25A5316i_Restore.ipsw
+# https://updates.cdn-apple.com/2025SummerSeed/fullrestores/082-72248/F32F08F8-FC66-4D24-847B-F03C6CF7C410/UniversalMac_26.0_25A5306g_Restore.ipsw
+# aea decrypt -i ~/Downloads/UniversalMac_26.0_25A5316i_Restore/044-44752-107.dmg.aea -o ~/Downloads/UniversalMac_26.0_25A5316i_Restore/044-44752-107.dmg -key-value 'base64:6AgFrh6bxZ4tKfIKnDwvT1aXLbgRivDiLDmw/AF9vfU='
+# aea decrypt -i ~/Downloads/UniversalMac_26.0_25A5306g_Restore/044-44752-094.dmg.aea -o ~/Downloads/UniversalMac_26.0_25A5306g_Restore/044-44752-094.dmg -key-value 'base64:SwvusTPGzVJX9bJa6t5EWTpmLHFnAfC8Zft3VUpPKGY=' 
+
+printf 'Printing signing information for Dock.app pre-extracted from UniversalMac_26.0_25A5316i_Restore.ipsw...\n'
+codesign -dvvv ./assets/Dock.app
+
+printf 'Replacing current Dock.app with Dock.app pre-extracted from UniversalMac_26.0_25A5316i_Restore.ipsw...\n'
+xattr -cr ./assets/Dock.app
+cp -R ./assets/Dock.app /private/tmp/live_mount/System/Library/CoreServices
+
+printf 'Printing signing information for Launchpad.app pre-extracted from UniversalMac_26.0_25A5306g_Restore.ipsw...\n'
+codesign -dvvv ./assets/Launchpad.app
+
+printf 'Adding Launchpad.app pre-extracted from UniversalMac_26.0_25A5306g_Restore.ipsw...\n'
+xattr -cr ./assets/Launchpad.app
+cp -R ./assets/Launchpad.app /private/tmp/live_mount/System/Applications
+
+printf 'Updating Info.plist to unhide Launchpad.app...\n'
+plutil -remove LSRequiredFeatureFlags /private/tmp/live_mount/System/Applications/Launchpad.app/Contents/Info.plist
+
+printf 'Breaking Launchpad.app out of icon jail...\n'
+xattr -wx com.apple.FinderInfo '00 00 00 00 00 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00' /private/tmp/live_mount/System/Applications/Launchpad.app
+ditto -xk ./assets/icon.zip /private/tmp/live_mount/System/Applications/Launchpad.app
+
+printf 'Updating com.apple.Dock.plist...\n'
+plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_DISABLED</key><string>SpotlightUI/SpotlightPlus</string></dict>" /private/tmp/live_mount/System/Library/LaunchAgents/com.apple.Dock.plist
+
+printf 'Creating snapshot to apply changes...\n'
+bless --mount /tmp/live_mount --bootefi --create-snapshot </dev/tty
+diskutil unmount force /tmp/live_mount > /dev/null 2>&1
+
+read -r -p "Restart? [Y/n] " response </dev/tty
+case "$response" in
+    [nN][oO]|[nN]) 
+        printf 'Changes will be applied after restart.\n'
+        ;;
+    *)
+        reboot
+        ;;
+esac

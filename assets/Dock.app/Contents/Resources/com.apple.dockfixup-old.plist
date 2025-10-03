@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>system-apps</key>
+	<dict>
+		<key>com.apple.iBooksX</key>
+		<string>/System/Applications/Books.app</string>
+		<key>com.apple.grapher</key>
+		<string>/System/Applications/Utilities/Grapher.app</string>
+		<key>com.apple.java.JavaPreferences</key>
+		<string>/System/Applications/Utilities/Java Preferences.app</string>
+		<key>com.apple.keychainaccess</key>
+		<string>/System/Library/CoreServices/Applications/Keychain Access.app</string>
+		<key>com.apple.screenshot.launcher</key>
+		<string>/System/Applications/Utilities/Screenshot.app</string>
+		<key>com.apple.MigrateAssistant</key>
+		<string>/System/Applications/Utilities/Migration Assistant.app</string>
+		<key>com.apple.NetworkUtility</key>
+		<string>/System/Library/CoreServices/Applications/Network Utility.app</string>
+		<key>com.apple.RAIDUtility</key>
+		<string>/System/Applications/Utilities/RAID Utility.app</string>
+		<key>com.apple.SystemProfiler</key>
+		<string>/System/Applications/Utilities/System Information.app</string>
+		<key>com.apple.Terminal</key>
+		<string>/System/Applications/Utilities/Terminal.app</string>
+		<key>com.apple.VoiceOverUtility</key>
+		<string>/System/Applications/Utilities/VoiceOver Utility.app</string>
+		<key>com.apple.X11redirect</key>
+		<string>/System/Applications/Utilities/X11.app</string>
+		<key>com.apple.DiskUtility</key>
+		<string>/System/Applications/Utilities/Disk Utility.app</string>
+		<key>com.apple.DigitalColorMeter</key>
+		<string>/System/Applications/Utilities/Digital Color Meter.app</string>
+		<key>com.apple.Console</key>
+		<string>/System/Applications/Utilities/Console.app</string>
+		<key>com.apple.ColorSyncUtility</key>
+		<string>/System/Applications/Utilities/ColorSync Utility.app</string>
+		<key>com.apple.bootcampassistant</key>
+		<string>/System/Applications/Utilities/Boot Camp Assistant.app</string>
+		<key>com.apple.BluetoothFileExchange</key>
+		<string>/System/Applications/Utilities/Bluetooth File Exchange.app</string>
+		<key>com.apple.audio.AudioMIDISetup</key>
+		<string>/System/Applications/Utilities/Audio MIDI Setup.app</string>
+		<key>com.apple.ScriptEditor2</key>
+		<string>/System/Applications/Utilities/Script Editor.app</string>
+		<key>com.apple.airport.airportutility</key>
+		<string>/System/Applications/Utilities/AirPort Utility.app</string>
+		<key>com.apple.ActivityMonitor</key>
+		<string>/System/Applications/Utilities/Activity Monitor.app</string>
+		<key>com.apple.backup.launcher</key>
+		<string>/System/Applications/Time Machine.app</string>
+		<key>com.apple.TextEdit</key>
+		<string>/System/Applications/TextEdit.app</string>
+		<key>com.apple.systempreferences</key>
+		<string>/System/Applications/System Settings.app</string>
+		<key>com.apple.Stickies</key>
+		<string>/System/Applications/Stickies.app</string>
+		<key>com.apple.Safari</key>
+		<string>/System/Cryptexes/App/System/Applications/Safari.app</string>
+		<key>com.apple.reminders</key>
+		<string>/System/Applications/Reminders.app</string>
+		<key>com.apple.QuickTimePlayerX</key>
+		<string>/System/Applications/QuickTime Player.app</string>
+		<key>com.apple.Preview</key>
+		<string>/System/Applications/Preview.app</string>
+		<key>com.apple.PhotoBooth</key>
+		<string>/System/Applications/Photo Booth.app</string>
+		<key>com.apple.exposelauncher</key>
+		<string>/System/Applications/Mission Control.app</string>
+		<key>com.apple.Notes</key>
+		<string>/System/Applications/Notes.app</string>
+		<key>com.apple.mail</key>
+		<string>/System/Applications/Mail.app</string>
+		<key>com.apple.Maps</key>
+		<string>/System/Applications/Maps.app</string>
+		<key>com.apple.MobileSMS</key>
+		<string>/System/Applications/Messages.app</string>
+		<key>com.apple.iTunes</key>
+		<string>/System/Applications/iTunes.app</string>
+		<key>com.apple.Image_Capture</key>
+		<string>/System/Applications/Image Capture.app</string>
+		<key>com.apple.FontBook</key>
+		<string>/System/Applications/Font Book.app</string>
+		<key>com.apple.gamecenter</key>
+		<string>/System/Applications/Game Center.app</string>
+		<key>com.apple.FaceTime</key>
+		<string>/System/Applications/FaceTime.app</string>
+		<key>com.apple.DVDPlayer</key>
+		<string>/System/Library/CoreServices/Applications/DVD Player.app</string>
+		<key>com.apple.Dictionary</key>
+		<string>/System/Applications/Dictionary.app</string>
+		<key>com.apple.Chess</key>
+		<string>/System/Applications/Chess.app</string>
+		<key>com.apple.calculator</key>
+		<string>/System/Applications/Calculator.app</string>
+		<key>com.apple.AddressBook</key>
+		<string>/System/Applications/Contacts.app</string>
+		<key>com.apple.iCal</key>
+		<string>/System/Applications/Calendar.app</string>
+		<key>com.apple.launchpad.launcher</key>
+		<string>/System/Applications/Launchpad.app</string>
+		<key>com.apple.AppStore</key>
+		<string>/System/Applications/App Store.app</string>
+		<key>com.apple.Automator</key>
+		<string>/System/Applications/Automator.app</string>
+		<key>com.apple.Photos</key>
+		<string>/System/Applications/Photos.app</string>
+		<key>com.apple.siri.launcher</key>
+		<string>/System/Applications/Siri.app</string>
+		<key>com.apple.news</key>
+		<string>/System/Applications/News.app</string>
+		<key>com.apple.Home</key>
+		<string>/System/Applications/Home.app</string>
+		<key>com.apple.stocks</key>
+		<string>/System/Applications/Stocks.app</string>
+		<key>com.apple.VoiceMemos</key>
+		<string>/System/Applications/VoiceMemos.app</string>
+		<key>com.apple.TV</key>
+		<string>/System/Applications/TV.app</string>
+		<key>com.apple.findmy</key>
+		<string>/System/Applications/FindMy.app</string>
+		<key>com.apple.Music</key>
+		<string>/System/Applications/Music.app</string>
+		<key>com.apple.podcasts</key>
+		<string>/System/Applications/Podcasts.app</string>
+		<key>com.apple.freeform</key>
+		<string>/System/Applications/Freeform.app</string>
+		<key>com.apple.ScreenSharing</key>
+		<string>/System/Applications/Utilities/Screen Sharing.app</string>
+	</dict>
+	<key>add-app</key>
+	<array>
+		<dict>
+			<key>after</key>
+			<string>/System/Applications/Messages.app</string>
+			<key>path</key>
+			<string>/System/Applications/Maps.app</string>
+			<key>version</key>
+			<string>10.9</string>
+		</dict>
+		<dict>
+			<key>after</key>
+			<string>/System/Applications/Maps.app</string>
+			<key>path</key>
+			<string>/System/Applications/Photos.app</string>
+			<key>version</key>
+			<string>10.10.3</string>
+		</dict>
+		<dict>
+			<key>before</key>
+			<string>/System/Applications/Books.app</string>
+			<key>path</key>
+			<string>/System/Applications/News.app</string>
+			<key>verifyRegion</key>
+			<true/>
+			<key>version</key>
+			<string>10.14</string>
+		</dict>
+		<dict>
+			<key>after</key>
+			<string>end</string>
+			<key>group</key>
+			<integer>80</integer>
+			<key>path</key>
+			<string>/System/Applications/Server.app</string>
+			<key>server</key>
+			<true/>
+			<key>version</key>
+			<string>10.8</string>
+		</dict>
+		<dict>
+			<key>after</key>
+			<string>/System/Applications/Notes.app</string>
+			<key>path</key>
+			<string>/System/Applications/Freeform.app</string>
+			<key>version</key>
+			<string>13.0</string>
+		</dict>
+		<dict>
+			<key>after</key>
+			<string>/System/Applications/Freeform.app</string>
+			<key>path</key>
+			<string>/System/Applications/TV.app</string>
+			<key>version</key>
+			<string>10.15</string>
+		</dict>
+	</array>
+	<key>add-doc</key>
+	<array>
+		<dict>
+			<key>path</key>
+			<string>~/Downloads</string>
+			<key>version</key>
+			<string>10.8.2</string>
+			<key>folder</key>
+			<dict>
+				<key>arrangement</key>
+				<integer>2</integer>
+				<key>showas</key>
+				<integer>1</integer>
+			</dict>
+		</dict>
+	</array>
+	<key>move</key>
+	<dict>
+		<key>/Applications/Safari.app</key>
+		<string>/System/Cryptexes/App/System/Applications/Safari.app</string>
+		<key>/Applications/AppleScript/Script Editor.app</key>
+		<string>/System/Applications/Utilities/Script Editor.app</string>
+		<key>/Applications/Utilities/AppleScript Editor.app</key>
+		<string>/System/Applications/Utilities/Script Editor.app</string>
+		<key>/Applications/Expose.app</key>
+		<string>/System/Applications/Mission Control.app</string>
+		<key>/Applications/Utilities/Expose.app</key>
+		<string>/System/Applications/Mission Control.app</string>
+		<key>/Applications/Utilities/Apple System Profiler.app</key>
+		<string>/System/Applications/Utilities/System Profiler.app</string>
+		<key>/Applications/Utilities/Server Center.app</key>
+		<string>/System/Applications/Server.app</string>
+		<key>/Applications/Utilities/Server Utility.app</key>
+		<string>/System/Applications/Utilities/Server Center.app</string>
+		<key>/Applications/iChat.app</key>
+		<string>/System/Applications/Messages.app</string>
+		<key>/Applications/iCal.app</key>
+		<string>/System/Applications/Calendar.app</string>
+		<key>/Applications/Address Book.app</key>
+		<string>/System/Applications/Contacts.app</string>
+		<key>/Applications/iBooks.app</key>
+		<string>/System/Applications/Books.app</string>
+		<key>/Applications/DVD Player.app</key>
+		<string>/System/Library/CoreServices/Applications/DVD Player.app</string>
+		<key>/Applications/Books.app</key>
+		<string>/System/Applications/Books.app</string>
+		<key>/Applications/Utilities/Grapher.app</key>
+		<string>/System/Applications/Utilities/Grapher.app</string>
+		<key>/Applications/Utilities/Screenshot.app</key>
+		<string>/System/Applications/Utilities/Screenshot.app</string>
+		<key>/Applications/Utilities/Java Preferences.app</key>
+		<string>/System/Applications/Utilities/Java Preferences.app</string>
+		<key>/Applications/Utilities/Keychain Access.app</key>
+		<string>/System/Library/CoreServices/Applications/Keychain Access.app</string>
+		<key>/Applications/Utilities/Migration Assistant.app</key>
+		<string>/System/Applications/Utilities/Migration Assistant.app</string>
+		<key>/Applications/Utilities/Network Utility.app</key>
+		<string>/System/Library/CoreServices/Applications/Network Utility.app</string>
+		<key>/Applications/Utilities/RAID Utility.app</key>
+		<string>/System/Applications/Utilities/RAID Utility.app</string>
+		<key>/Applications/Utilities/System Information.app</key>
+		<string>/System/Applications/Utilities/System Information.app</string>
+		<key>/Applications/Utilities/Terminal.app</key>
+		<string>/System/Applications/Utilities/Terminal.app</string>
+		<key>/Applications/Utilities/VoiceOver Utility.app</key>
+		<string>/System/Applications/Utilities/VoiceOver Utility.app</string>
+		<key>/Applications/Utilities/X11.app</key>
+		<string>/System/Applications/Utilities/X11.app</string>
+		<key>/Applications/Utilities/Disk Utility.app</key>
+		<string>/System/Applications/Utilities/Disk Utility.app</string>
+		<key>/Applications/Utilities/Digital Color Meter.app</key>
+		<string>/System/Applications/Utilities/Digital Color Meter.app</string>
+		<key>/Applications/Utilities/Console.app</key>
+		<string>/System/Applications/Utilities/Console.app</string>
+		<key>/Applications/Utilities/ColorSync Utility.app</key>
+		<string>/System/Applications/Utilities/ColorSync Utility.app</string>
+		<key>/Applications/Utilities/Boot Camp Assistant.app</key>
+		<string>/System/Applications/Utilities/Boot Camp Assistant.app</string>
+		<key>/Applications/Utilities/Bluetooth File Exchange.app</key>
+		<string>/System/Applications/Utilities/Bluetooth File Exchange.app</string>
+		<key>/Applications/Utilities/Audio MIDI Setup.app</key>
+		<string>/System/Applications/Utilities/Audio MIDI Setup.app</string>
+		<key>/Applications/Utilities/Script Editor.app</key>
+		<string>/System/Applications/Utilities/Script Editor.app</string>
+		<key>/Applications/Utilities/AirPort Utility.app</key>
+		<string>/System/Applications/Utilities/AirPort Utility.app</string>
+		<key>/Applications/Utilities/Activity Monitor.app</key>
+		<string>/System/Applications/Utilities/Activity Monitor.app</string>
+		<key>/Applications/Time Machine.app</key>
+		<string>/System/Applications/Time Machine.app</string>
+		<key>/Applications/TextEdit.app</key>
+		<string>/System/Applications/TextEdit.app</string>
+		<key>/Applications/System Preferences.app</key>
+		<string>/System/Applications/System Settings.app</string>
+		<key>/Applications/Stickies.app</key>
+		<string>/System/Applications/Stickies.app</string>
+		<key>/Applications/Reminders.app</key>
+		<string>/System/Applications/Reminders.app</string>
+		<key>/Applications/QuickTime Player.app</key>
+		<string>/System/Applications/QuickTime Player.app</string>
+		<key>/Applications/Preview.app</key>
+		<string>/System/Applications/Preview.app</string>
+		<key>/Applications/Photo Booth.app</key>
+		<string>/System/Applications/Photo Booth.app</string>
+		<key>/Applications/Mission Control.app</key>
+		<string>/System/Applications/Mission Control.app</string>
+		<key>/Applications/Notes.app</key>
+		<string>/System/Applications/Notes.app</string>
+		<key>/Applications/Mail.app</key>
+		<string>/System/Applications/Mail.app</string>
+		<key>/Applications/Maps.app</key>
+		<string>/System/Applications/Maps.app</string>
+		<key>/Applications/Messages.app</key>
+		<string>/System/Applications/Messages.app</string>
+		<key>/Applications/iTunes.app</key>
+		<string>/System/Applications/Music.app</string>
+		<key>/Applications/Image Capture.app</key>
+		<string>/System/Applications/Image Capture.app</string>
+		<key>/Applications/Font Book.app</key>
+		<string>/System/Applications/Font Book.app</string>
+		<key>/Applications/Game Center.app</key>
+		<string>/System/Applications/Game Center.app</string>
+		<key>/Applications/FaceTime.app</key>
+		<string>/System/Applications/FaceTime.app</string>
+		<key>/Applications/Dictionary.app</key>
+		<string>/System/Applications/Dictionary.app</string>
+		<key>/Applications/Chess.app</key>
+		<string>/System/Applications/Chess.app</string>
+		<key>/Applications/Calculator.app</key>
+		<string>/System/Applications/Calculator.app</string>
+		<key>/Applications/Contacts.app</key>
+		<string>/System/Applications/Contacts.app</string>
+		<key>/Applications/Calendar.app</key>
+		<string>/System/Applications/Calendar.app</string>
+		<key>/Applications/Launchpad.app</key>
+		<string>/System/Applications/Launchpad.app</string>
+		<key>/Applications/App Store.app</key>
+		<string>/System/Applications/App Store.app</string>
+		<key>/Applications/Automator.app</key>
+		<string>/System/Applications/Automator.app</string>
+		<key>/Applications/Photos.app</key>
+		<string>/System/Applications/Photos.app</string>
+		<key>/Applications/Siri.app</key>
+		<string>/System/Applications/Siri.app</string>
+		<key>/Applications/News.app</key>
+		<string>/System/Applications/News.app</string>
+		<key>/Applications/Home.app</key>
+		<string>/System/Applications/Home.app</string>
+		<key>/Applications/Stocks.app</key>
+		<string>/System/Applications/Stocks.app</string>
+		<key>/Applications/Voice Memos.app</key>
+		<string>/System/Applications/VoiceMemos.app</string>
+		<key>/System/Applications/Apple TV.app</key>
+		<string>/System/Applications/TV.app</string>
+		<key>/System/Applications/System Preferences.app</key>
+		<string>/System/Applications/System Settings.app</string>
+		<key>/System/Library/CoreServices/Applications/Screen Sharing.app</key>
+		<string>/System/Applications/Utilities/Screen Sharing.app</string>
+		<key>/System/Applications/Utilities/Keychain Access.app</key>
+		<string>/System/Library/CoreServices/Applications/Keychain Access.app</string>
+	</dict>
+	<key>replace</key>
+	<dict>
+		<key>com.apple.iPhoto</key>
+		<dict>
+			<key>path</key>
+			<string>/System/Applications/Photos.app</string>
+			<key>version</key>
+			<string>10.10.3</string>
+		</dict>
+		<key>com.apple.Grab</key>
+		<dict>
+			<key>path</key>
+			<string>/System/Applications/Utilities/Screenshot.app</string>
+			<key>version</key>
+			<string>10.14</string>
+		</dict>
+	</dict>
+	<key>remove-file</key>
+	<dict>
+		<key>/Applications/Install Mac OS X Lion.app</key>
+		<string>no-val</string>
+		<key>/Applications/Install OS X Mountain Lion Preview 1.app</key>
+		<string>no-val</string>
+		<key>/Applications/Install OS X Mountain Lion Preview 2.app</key>
+		<string>no-val</string>
+		<key>/Applications/Install OS X Mountain Lion Preview 3.app</key>
+		<string>no-val</string>
+		<key>/Applications/Install OS X Mountain Lion Preview 4.app</key>
+		<string>no-val</string>
+		<key>/Applications/Install OS X Mountain Lion.app</key>
+		<string>no-val</string>
+		<key>/Applications/Install OS X Mavericks.app</key>
+		<string>no-val</string>
+		<key>/Applications/iCal.app</key>
+		<string>no-val</string>
+		<key>/Applications/iCal Server Utility.app</key>
+		<string>no-val</string>
+		<key>/Applications/Server/iCal Server Utility.app</key>
+		<string>no-val</string>
+		<key>/Applications/iMovie HD.app</key>
+		<string>no-val</string>
+		<key>/Applications/Utilities/Disk Copy.app</key>
+		<string>no-val</string>
+		<key>/Applications/Front Row.app</key>
+		<string>no-val</string>
+		<key>/Applications/GarageBand.app</key>
+		<string>no-val</string>
+		<key>/System/Applications/GarageBand.app</key>
+		<string>no-val</string>
+		<key>/Applications/iMovie.app</key>
+		<string>no-val</string>
+		<key>/System/Applications/iMovie.app</key>
+		<string>no-val</string>
+		<key>/Applications/iPhoto.app</key>
+		<string>no-val</string>
+		<key>/System/Applications/iPhoto.app</key>
+		<string>no-val</string>
+		<key>/Applications/Keynote.app</key>
+		<string>no-val</string>
+		<key>/Applications/Numbers.app</key>
+		<string>no-val</string>
+		<key>/Applications/Pages.app</key>
+		<string>no-val</string>
+		<key>/Applications/Spaces.app</key>
+		<string>no-val</string>
+		<key>/System/Applications/Spaces.app</key>
+		<string>no-val</string>
+		<key>/Applications/Photos.app</key>
+		<string>no-val</string>
+		<key>/System/Applications/Photos.app</key>
+		<string>no-val</string>
+		<key>/Applications/Utilities/Spaces.app</key>
+		<string>no-val</string>
+		<key>/System/Applications/Utilities/Spaces.app</key>
+		<string>no-val</string>
+		<key>/Applications/Game Center.app</key>
+		<string>no-val</string>
+		<key>/System/Applications/Game Center.app</key>
+		<string>no-val</string>
+		<key>/Library/Documentation/Help/MacHelp.help/Contents/Resources/English.lproj/lbn/LateBreakingNews.help</key>
+		<string>no-val</string>
+		<key>/Applications/Dashboard.app</key>
+		<string>always</string>
+		<key>/System/Applications/Dashboard.app</key>
+		<string>always</string>
+		<key>/Applications/iTunes.app</key>
+		<string>always</string>
+		<key>/System/Applications/iTunes.app</key>
+		<string>always</string>
+	</dict>
+	<key>update</key>
+	<dict>
+		<key>/System/Applications/Messages.app</key>
+		<dict>
+			<key>bundle-identifier</key>
+			<string>com.apple.MobileSMS</string>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>15.0</string>
+</dict>
+</plist>
