@@ -15,9 +15,31 @@ else
 fi
 
 cp /System/Library/LaunchAgents/com.apple.Dock.plist /Users/Shared/.launchpad
-plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_DISABLED</key><string>SpotlightUI/SpotlightPlus</string></dict>" /Users/Shared/.launchpad/com.apple.Dock.plist
+cp -R /System/Library/CoreServices/Dock.app/Contents/XPCServices /Users/Shared/.launchpad/Dock.app/Contents/
+if defaults read /Library/Preferences/FeatureFlags/Domain/SwiftUI.plist Solarium | grep -q "Enabled = 0"; then
+    plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_DISABLED</key><string>SpotlightUI/SpotlightPlus:SwiftUI/Solarium</string></dict>" /Users/Shared/.launchpad/com.apple.Dock.plist
+else
+    plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_DISABLED</key><string>SpotlightUI/SpotlightPlus</string></dict>" /Users/Shared/.launchpad/com.apple.Dock.plist
+fi
 plutil -replace Program -string /Users/Shared/.launchpad/Dock.app/Contents/MacOS/Dock /Users/Shared/.launchpad/com.apple.Dock.plist
 
 launchctl unload /Users/Shared/.launchpad/com.apple.Dock.plist
 launchctl load /Users/Shared/.launchpad/com.apple.Dock.plist
 launchctl start com.apple.Dock.agent
+
+if defaults read /Library/Preferences/FeatureFlags/Domain/SwiftUI.plist Solarium | grep -q "Enabled = 0"; then
+    printf "Liquid Glass has been disabled. Control Center and Notification Center don't work correctly with Liquid Glass disabled, therefore relaunching them with Liquid Glass enabled.\n"
+    cp /System/Library/LaunchAgents/com.apple.controlcenter.plist /Users/Shared/.launchpad
+    plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_ENABLED</key><string>SwiftUI/Solarium</string></dict>" /Users/Shared/.launchpad/com.apple.controlcenter.plist
+    launchctl unload /Users/Shared/.launchpad/com.apple.controlcenter.plist
+    launchctl load /Users/Shared/.launchpad/com.apple.controlcenter.plist
+    launchctl start com.apple.controlcenter
+
+    cp /System/Library/LaunchAgents/com.apple.notificationcenterui.plist /Users/Shared/.launchpad
+    plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_ENABLED</key><string>SwiftUI/Solarium</string></dict>" /Users/Shared/.launchpad/com.apple.notificationcenterui.plist
+    launchctl unload /Users/Shared/.launchpad/com.apple.notificationcenterui.plist
+    launchctl load /Users/Shared/.launchpad/com.apple.notificationcenterui.plist
+    launchctl start com.apple.notificationcenterui.agent
+else
+    printf "Done!\n"
+fi

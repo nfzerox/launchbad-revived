@@ -71,11 +71,6 @@ printf 'Breaking Launchpad.app out of icon jail...\n'
 xattr -wx com.apple.FinderInfo '00 00 00 00 00 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00' /Applications/Launchpad.app
 ditto -xk ./assets/icon.zip /Applications/Launchpad.app
 
-printf 'Updating com.apple.Dock.plist...\n'
-cp /System/Library/LaunchAgents/com.apple.Dock.plist /Users/Shared/.launchpad
-plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_DISABLED</key><string>SpotlightUI/SpotlightPlus</string></dict>" /Users/Shared/.launchpad/com.apple.Dock.plist
-plutil -replace Program -string /Users/Shared/.launchpad/Dock.app/Contents/MacOS/Dock /Users/Shared/.launchpad/com.apple.Dock.plist
-
 printf 'Reloading Dock to apply changes...\n'
 xattr -cr ./assets/Launchpad
 cp ./assets/Launchpad /Users/Shared/.launchpad
