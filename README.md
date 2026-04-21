@@ -4,8 +4,9 @@
 1. [Turn off System Integrity Protection](https://developer.apple.com/documentation/security/disabling-and-enabling-system-integrity-protection) by running `csrutil disable` in recoveryOS
 2. Download [launchbad-revived](https://codeload.github.com/nfzerox/launchbad-revived/zip/refs/heads/main) and unzip it
 3. Open Terminal and run `~/Downloads/launchbad-revived-main/launchpad`
+4. In Finder > Applications, right click Launchpad, click Get Info, and drag `assets/AppIcon.icns` onto the Launchpad icon to break it out of icon jail
 
-This has been tested on macOS 26.3, macOS 26.2, macOS 26.1, and macOS 26.0. This script will replace your current Dock with an older Dock pre-extracted from macOS 26.0 beta 4, and installs Launchpad pre-extracted from macOS 26.0 beta 3. During installation, this script prints signing information from these pre-extracted apps so you can confirm they are authentic. To uninstall, run `~/Downloads/launchbad-revived-main/launchpad` again.
+This has been tested up until macOS 26.4.1. This script will replace your current Dock with an older Dock pre-extracted from macOS 26.0 beta 4, and installs Launchpad pre-extracted from macOS 26.0 beta 3. During installation, this script prints signing information from these pre-extracted apps so you can confirm they are authentic. To uninstall, run `~/Downloads/launchbad-revived-main/launchpad` again.
 
 ## Screenshot
 <img width="1920" alt="Launchpad" src="https://github.com/user-attachments/assets/2e8cee9f-997b-420d-8268-aa5b8997dc50" />
@@ -21,7 +22,7 @@ defaults write -g NSAlertGlassSolariumEnabled -bool false
 
 <img width="1920" alt="macOS Tahoe with Liquid Glass disabled" src="https://github.com/user-attachments/assets/3137eb8b-b219-416b-9c1c-6fc026e1912b"/>
 
-This has been tested on macOS 26.3, macOS 26.2, macOS 26.1, and macOS 26.0. When Liquid Glass is disabled on macOS Tahoe, column view clips folder content in Finder.
+This has been tested up until macOS 26.4.1. When Liquid Glass is disabled on macOS Tahoe, column view clips folder content in Finder.
 
 You can disable Liquid Glass without turning off System Integrity Protection or reinstalling Launchpad, but unless you turn off System Integrity Protection and reinstall Launchpad, system UI such as Dock, Control Center and Notification Center appear without any background material, which can be hard to read.
 
