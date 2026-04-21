@@ -77,6 +77,7 @@ cp ./assets/Launchpad /Users/Shared/.launchpad
 chmod +x /Users/Shared/.launchpad/Launchpad
 
 xattr -cr ./assets/com.launchpad.agent.plist
+mkdir -p ~/Library/LaunchAgents
 cp ./assets/com.launchpad.agent.plist ~/Library/LaunchAgents
 launchctl unload ~/Library/LaunchAgents/com.launchpad.agent.plist > /dev/null 2>&1
 launchctl load ~/Library/LaunchAgents/com.launchpad.agent.plist
