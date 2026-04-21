@@ -67,9 +67,9 @@ cp -R ./assets/Launchpad.app /Applications
 printf 'Updating Info.plist to unhide Launchpad.app...\n'
 plutil -remove LSRequiredFeatureFlags /Applications/Launchpad.app/Contents/Info.plist
 
-printf 'Breaking Launchpad.app out of icon jail...\n'
-xattr -wx com.apple.FinderInfo '00 00 00 00 00 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00' /Applications/Launchpad.app
-ditto -xk ./assets/icon.zip /Applications/Launchpad.app
+# printf 'Breaking Launchpad.app out of icon jail...\n'
+# xattr -wx com.apple.FinderInfo '00 00 00 00 00 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00' /Applications/Launchpad.app
+# ditto -xk ./assets/icon.zip /Applications/Launchpad.app
 
 printf 'Reloading Dock to apply changes...\n'
 xattr -cr ./assets/Launchpad
