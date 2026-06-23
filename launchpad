@@ -4,8 +4,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
 macos_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-if [ "$macos_version" -ne 26 ]; then
-    echo "This utility requires macOS 26."
+if [ "$macos_version" -lt 26 ] || [ "$macos_version" -gt 27 ]; then
+    echo "This utility only supports macOS 26 and macOS 27."
     exit 1
 fi
 
@@ -29,22 +29,27 @@ fi
 # aea decrypt -i ~/Downloads/UniversalMac_26.0_25A5306g_Restore/044-44752-094.dmg.aea -o ~/Downloads/UniversalMac_26.0_25A5306g_Restore/044-44752-094.dmg -key-value 'base64:SwvusTPGzVJX9bJa6t5EWTpmLHFnAfC8Zft3VUpPKGY=' 
 
 if [ -f ~/Library/LaunchAgents/com.launchpad.agent.plist ]; then
-    printf "It appears that you have installed Launchpad.\n"
-    read -r -p "Do you want to uninstall these modifications and restore to system defaults? [Y/n] " response </dev/tty
-    case "$response" in
-        [nN][oO]|[nN]) 
-            ;;
-        *)
-            launchctl unload ~/Library/LaunchAgents/com.launchpad.agent.plist
-            launchctl unload /Users/Shared/.launchpad/com.apple.Dock.plist
-            launchctl load /System/Library/LaunchAgents/com.apple.Dock.plist
-            launchctl start com.apple.Dock.agent
-            rm ~/Library/LaunchAgents/com.launchpad.agent.plist
-            rm -rf /Users/Shared/.launchpad
-            rm -rf /Applications/Launchpad.app
-            exit 1
-            ;;
-    esac
+    installed_shim=/Users/Shared/.launchpad/Frameworks/DynamicDesktop.framework/Versions/A/DynamicDesktop
+    if [ "$macos_version" -ge 27 ] && [ ! -f "$installed_shim" ]; then
+        printf "Detected a Launchpad install that predates macOS 27. Reinstalling to make the Dock compatible...\n"
+    else
+        printf "It appears that you have installed Launchpad.\n"
+        read -r -p "Do you want to uninstall these modifications and restore to system defaults? [Y/n] " response </dev/tty
+        case "$response" in
+            [nN][oO]|[nN])
+                ;;
+            *)
+                launchctl unload ~/Library/LaunchAgents/com.launchpad.agent.plist
+                launchctl unload /Users/Shared/.launchpad/com.apple.Dock.plist
+                launchctl load /System/Library/LaunchAgents/com.apple.Dock.plist
+                launchctl start com.apple.Dock.agent
+                rm ~/Library/LaunchAgents/com.launchpad.agent.plist
+                rm -rf /Users/Shared/.launchpad
+                rm -rf /Applications/Launchpad.app
+                exit 1
+                ;;
+        esac
+    fi
 else
     printf "Reinstalling Launchpad...\n"
 fi
@@ -57,11 +62,18 @@ xattr -cr ./assets/Dock.app
 mkdir -p /Users/Shared/.launchpad/
 cp -R ./assets/Dock.app /Users/Shared/.launchpad
 
+printf 'Installing DynamicDesktop.framework shim...\n'
+xattr -cr ./assets/DynamicDesktop.framework
+mkdir -p /Users/Shared/.launchpad/Frameworks
+rm -rf /Users/Shared/.launchpad/Frameworks/DynamicDesktop.framework
+cp -R ./assets/DynamicDesktop.framework /Users/Shared/.launchpad/Frameworks/
+
 printf 'Printing signing information for Launchpad.app pre-extracted from UniversalMac_26.0_25A5306g_Restore.ipsw...\n'
 codesign -dvvv ./assets/Launchpad.app
 
 printf 'Copying Launchpad.app pre-extracted from UniversalMac_26.0_25A5306g_Restore.ipsw...\n'
 xattr -cr ./assets/Launchpad.app
+rm -rf /Applications/Launchpad.app
 cp -R ./assets/Launchpad.app /Applications
 
 printf 'Updating Info.plist to unhide Launchpad.app...\n'

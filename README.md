@@ -6,13 +6,50 @@
 3. Open Terminal and run `~/Downloads/launchbad-revived-main/launchpad`
 4. In Finder > Applications, right click Launchpad, click Get Info, and drag `assets/AppIcon.icns` onto the Launchpad icon to break it out of icon jail
 
-This has been tested up until macOS 26.4.1. This script will replace your current Dock with an older Dock pre-extracted from macOS 26.0 beta 4, and installs Launchpad pre-extracted from macOS 26.0 beta 3. During installation, this script prints signing information from these pre-extracted apps so you can confirm they are authentic. To uninstall, run `~/Downloads/launchbad-revived-main/launchpad` again.
+This has been tested up until macOS Golden Gate 27. This script will replace your current Dock with an older Dock pre-extracted from macOS 26.0 beta 4, and installs Launchpad pre-extracted from macOS 26.0 beta 3. During installation, this script prints signing information from these pre-extracted apps so you can confirm they are authentic.
+
+To uninstall, run `~/Downloads/launchbad-revived-main/launchpad` again. If you want to use Launchpad but don’t want to disable System Integrity Protection, download [LaunchOS](https://launchosapp.com) instead.
 
 ## Screenshot
 <img width="1920" alt="Launchpad" src="https://github.com/user-attachments/assets/2e8cee9f-997b-420d-8268-aa5b8997dc50" />
 
+## Tip: Customize window corner radius
+To customize the window corner radius on macOS Golden Gate or macOS Tahoe, open Terminal and run the following command. This works even if System Integrity Protection is enabled.
+
+```
+defaults write -g NSConvolutionOverride1 -float 9
+```
+
+You can replace `9` with the corner radius you'd like to use. `4` matches macOS Catalina, `9` matches macOS Sequoia, `15` matches macOS Golden Gate, `0.1` makes windows square.
+
+On macOS Tahoe, you can also customize the sidebar glass platter corner radius, or use edge-to-edge sidebar (see next section):
+
+```
+defaults write -g NSSplitViewItemGlassMinimumCornerRadius -float 6
+```
+
+To reset, open Terminal and run the following command.
+
+```
+defaults delete -g NSConvolutionOverride1
+defaults delete -g NSSplitViewItemGlassMinimumCornerRadius
+```
+
+## Tip: Edge-to-edge sidebar on macOS Tahoe
+To use edge-to-edge sidebar on macOS Tahoe, open Terminal and run the following command. This works even if System Integrity Protection is enabled.
+
+```
+defaults write -g NSSplitViewItemSidebarDefaultsToFloatingAppearance -bool false
+```
+
+To reset, open Terminal and run the following command.
+
+```
+defaults delete -g NSSplitViewItemSidebarDefaultsToFloatingAppearance
+```
+
 ## Bonus: Disable Liquid Glass
-To disable Liquid Glass on macOS Tahoe, open Terminal and run the following command. You won’t see your password as you type. Changes take effect after restart.
+To disable Liquid Glass on macOS Golden Gate or macOS Tahoe, open Terminal and run the following command. You won’t see your password as you type. Changes take effect after restart.
 
 ```
 sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
@@ -22,11 +59,11 @@ defaults write -g NSAlertGlassSolariumEnabled -bool false
 
 <img width="1920" alt="macOS Tahoe with Liquid Glass disabled" src="https://github.com/user-attachments/assets/3137eb8b-b219-416b-9c1c-6fc026e1912b"/>
 
-This has been tested up until macOS 26.4.1. When Liquid Glass is disabled on macOS Tahoe, column view clips folder content in Finder.
+This has been tested up until macOS Golden Gate 27. When Liquid Glass is disabled on macOS Golden Gate or macOS Tahoe, column view clips folder content in Finder. When Liquid Glass is disabled on macOS Golden Gate, the new Siri app crashes on launch.
 
 You can disable Liquid Glass without turning off System Integrity Protection or reinstalling Launchpad, but unless you turn off System Integrity Protection and reinstall Launchpad, system UI such as Dock, Control Center and Notification Center appear without any background material, which can be hard to read.
 
-To re-enable Liquid Glass on macOS Tahoe, open Terminal and run the following command. You won’t see your password as you type. Changes take effect after restart.
+To re-enable Liquid Glass on macOS Golden Gate or macOS Tahoe, open Terminal and run the following command. You won’t see your password as you type. Changes take effect after restart.
 
 ```
 sudo defaults delete /Library/Preferences/FeatureFlags/Domain/SwiftUI.plist

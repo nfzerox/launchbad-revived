@@ -1,8 +1,8 @@
 #!/bin/sh
 
 macos_version=$(sw_vers -productVersion | cut -d '.' -f 1)
-if [ "$macos_version" -ne 26 ]; then
-    echo "This utility requires macOS 26."
+if [ "$macos_version" -lt 26 ] || [ "$macos_version" -gt 27 ]; then
+    echo "This utility only supports macOS 26 and macOS 27."
     exit 1
 fi
 
@@ -22,6 +22,10 @@ else
     plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_DISABLED</key><string>SpotlightUI/SpotlightPlus</string></dict>" /Users/Shared/.launchpad/com.apple.Dock.plist
 fi
 plutil -replace Program -string /Users/Shared/.launchpad/Dock.app/Contents/MacOS/Dock /Users/Shared/.launchpad/com.apple.Dock.plist
+
+if [ "$macos_version" -ge 27 ]; then
+    plutil -insert EnvironmentVariables.DYLD_FRAMEWORK_PATH -string /Users/Shared/.launchpad/Frameworks /Users/Shared/.launchpad/com.apple.Dock.plist
+fi
 
 launchctl unload /Users/Shared/.launchpad/com.apple.Dock.plist
 launchctl load /Users/Shared/.launchpad/com.apple.Dock.plist
