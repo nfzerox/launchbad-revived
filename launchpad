@@ -17,6 +17,58 @@ else
     exit 1
 fi
 
+if [ "$macos_version" -ge 27 ]; then
+    current_boot_args=$(nvram boot-args 2>/dev/null | sed 's/^boot-args[[:space:]]*//')
+    missing=""
+    case " $current_boot_args " in
+        *" amfi_get_out_of_my_way=0x1 "*|*" amfi_get_out_of_my_way=1 "*) ;;
+        *) missing="$missing amfi_get_out_of_my_way=0x1" ;;
+    esac
+    case " $current_boot_args " in
+        *" ipc_control_port_options=0 "*) ;;
+        *) missing="$missing ipc_control_port_options=0" ;;
+    esac
+    case " $current_boot_args " in
+        *" -arm64e_preview_abi "*) ;;
+        *) missing="$missing -arm64e_preview_abi" ;;
+    esac
+
+    if [ -z "$missing" ]; then
+        printf "✅ AMFI is permissive (amfi_get_out_of_my_way and friends are set).\n"
+    else
+        printf 'On macOS 27, the Dock must be patched and re-signed, which requires a permissive\n'
+        printf 'AMFI so the re-signed arm64e Dock keeps its entitlements. The following boot\n'
+        printf 'argument(s) are missing:%s\n' "$missing"
+        printf '\n'
+        read -r -p "Add them to your existing boot-args? [Y/n] " response </dev/tty
+        case "$response" in
+            [nN][oO]|[nN])
+                printf 'You can add them yourself with:\n'
+                printf '    sudo nvram boot-args="%s%s"\n' "$current_boot_args" "$missing"
+                printf 'then reboot and re-run this script.\n'
+                exit 1
+                ;;
+            *)
+                new_boot_args=$(printf '%s%s' "$current_boot_args" "$missing" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+                printf 'Setting: sudo nvram boot-args="%s"\n' "$new_boot_args"
+                sudo nvram boot-args="$new_boot_args" || exit 1
+                printf 'Done. This machine needs to reboot for the change to take effect.\n'
+                read -r -p "Reboot now? [Y/n] " response </dev/tty
+                case "$response" in
+                    [nN][oO]|[nN])
+                        printf 'Reboot manually, then re-run this script.\n'
+                        ;;
+                    *)
+                        printf 'Rebooting now. Re-run this script after your Mac restarts.\n'
+                        sudo shutdown -r now
+                        ;;
+                esac
+                exit 1
+                ;;
+        esac
+    fi
+fi
+
 # You can download and extract Dock.app and Launchpad.app from the IPSWs youself.
 # You can compare the shasum of your own extraction with what's in the repo, which matches.
 # You can also use your own .app bundles by placing them in ./assets.
@@ -26,11 +78,23 @@ fi
 # https://updates.cdn-apple.com/2025SummerSeed/fullrestores/082-89871/D95E6C0D-147C-4F0D-878B-A4534D9B4763/UniversalMac_26.0_25A5316i_Restore.ipsw
 # https://updates.cdn-apple.com/2025SummerSeed/fullrestores/082-72248/F32F08F8-FC66-4D24-847B-F03C6CF7C410/UniversalMac_26.0_25A5306g_Restore.ipsw
 # aea decrypt -i ~/Downloads/UniversalMac_26.0_25A5316i_Restore/044-44752-107.dmg.aea -o ~/Downloads/UniversalMac_26.0_25A5316i_Restore/044-44752-107.dmg -key-value 'base64:6AgFrh6bxZ4tKfIKnDwvT1aXLbgRivDiLDmw/AF9vfU='
-# aea decrypt -i ~/Downloads/UniversalMac_26.0_25A5306g_Restore/044-44752-094.dmg.aea -o ~/Downloads/UniversalMac_26.0_25A5306g_Restore/044-44752-094.dmg -key-value 'base64:SwvusTPGzVJX9bJa6t5EWTpmLHFnAfC8Zft3VUpPKGY=' 
+# aea decrypt -i ~/Downloads/UniversalMac_26.0_25A5306g_Restore/044-44752-094.dmg.aea -o ~/Downloads/UniversalMac_26.0_25A5306g_Restore/044-44752-094.dmg -key-value 'base64:SwvusTPGzVJX9bJa6t5EWTpmLHFnAfC8Zft3VUpPKGY='
+
+WINDOWMANAGER_PATH=/System/Library/PrivateFrameworks/WindowManager.framework/Versions/A/WindowManager
+WINDOWMANAGER_SHIM=/Users/Shared/.launchpad/Frameworks/WindowManagerShim.dylib
+installed_dock=/Users/Shared/.launchpad/Dock.app/Contents/MacOS/Dock
+installed_dd_shim=/Users/Shared/.launchpad/Frameworks/DynamicDesktop.framework/Versions/A/DynamicDesktop
 
 if [ -f ~/Library/LaunchAgents/com.launchpad.agent.plist ]; then
-    installed_shim=/Users/Shared/.launchpad/Frameworks/DynamicDesktop.framework/Versions/A/DynamicDesktop
-    if [ "$macos_version" -ge 27 ] && [ ! -f "$installed_shim" ]; then
+    needs_macos27_reinstall=0
+    if [ "$macos_version" -ge 27 ]; then
+        if [ ! -f "$installed_dd_shim" ] || \
+           ! otool -L "$installed_dock" 2>/dev/null | grep -q "$WINDOWMANAGER_SHIM"; then
+            needs_macos27_reinstall=1
+        fi
+    fi
+
+    if [ "$needs_macos27_reinstall" -eq 1 ]; then
         printf "Detected a Launchpad install that predates macOS 27. Reinstalling to make the Dock compatible...\n"
     else
         printf "It appears that you have installed Launchpad.\n"
@@ -60,6 +124,7 @@ codesign -dvvv ./assets/Dock.app
 printf 'Copying Dock.app pre-extracted from UniversalMac_26.0_25A5316i_Restore.ipsw...\n'
 xattr -cr ./assets/Dock.app
 mkdir -p /Users/Shared/.launchpad/
+rm -rf /Users/Shared/.launchpad/Dock.app
 cp -R ./assets/Dock.app /Users/Shared/.launchpad
 
 printf 'Installing DynamicDesktop.framework shim...\n'
@@ -67,6 +132,20 @@ xattr -cr ./assets/DynamicDesktop.framework
 mkdir -p /Users/Shared/.launchpad/Frameworks
 rm -rf /Users/Shared/.launchpad/Frameworks/DynamicDesktop.framework
 cp -R ./assets/DynamicDesktop.framework /Users/Shared/.launchpad/Frameworks/
+
+if [ "$macos_version" -ge 27 ]; then
+    printf 'Installing WindowManagerShim.dylib...\n'
+    xattr -cr ./assets/WindowManagerShim.dylib
+    cp ./assets/WindowManagerShim.dylib "$WINDOWMANAGER_SHIM"
+    codesign --force --sign - "$WINDOWMANAGER_SHIM"
+    install_name_tool -change "$WINDOWMANAGER_PATH" "$WINDOWMANAGER_SHIM" "$installed_dock"
+
+    printf 'Re-signing the patched Dock ad-hoc (preserving its original entitlements)...\n'
+    dock_ents=$(mktemp -t launchpad-dock-ents)
+    codesign -d --entitlements "$dock_ents" --xml ./assets/Dock.app 2>/dev/null
+    codesign --force --sign - --entitlements "$dock_ents" "$installed_dock"
+    rm -f "$dock_ents"
+fi
 
 printf 'Printing signing information for Launchpad.app pre-extracted from UniversalMac_26.0_25A5306g_Restore.ipsw...\n'
 codesign -dvvv ./assets/Launchpad.app

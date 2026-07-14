@@ -2,13 +2,15 @@
 
 ## Usage
 1. [Turn off System Integrity Protection](https://developer.apple.com/documentation/security/disabling-and-enabling-system-integrity-protection) by running `csrutil disable` in recoveryOS
-2. Download [launchbad-revived](https://codeload.github.com/nfzerox/launchbad-revived/zip/refs/heads/main) and unzip it
-3. Open Terminal and run `~/Downloads/launchbad-revived-main/launchpad`
-4. In Finder > Applications, right click Launchpad, click Get Info, and drag `assets/AppIcon.icns` onto the Launchpad icon to break it out of icon jail
+2. If you are running macOS Golden Gate, run the following command and reboot  
+`sudo nvram boot-args="amfi_get_out_of_my_way=0x1 ipc_control_port_options=0 -arm64e_preview_abi"`
+3. Download [launchbad-revived](https://codeload.github.com/nfzerox/launchbad-revived/zip/refs/heads/main) and unzip it
+4. Open Terminal and run `~/Downloads/launchbad-revived-main/launchpad`
+5. In Finder > Applications, right click Launchpad, click Get Info, and drag `assets/AppIcon.icns` onto the Launchpad icon to break it out of icon jail
 
-This has been tested up until macOS Golden Gate 27. This script will replace your current Dock with an older Dock pre-extracted from macOS 26.0 beta 4, and installs Launchpad pre-extracted from macOS 26.0 beta 3. During installation, this script prints signing information from these pre-extracted apps so you can confirm they are authentic.
+This has been tested up until macOS Golden Gate 27 Beta 3. This script will replace your current Dock with an older Dock pre-extracted from macOS 26.0 beta 4, and installs Launchpad pre-extracted from macOS 26.0 beta 3. During installation, this script prints signing information from these pre-extracted apps so you can confirm they are authentic.
 
-To uninstall, run `~/Downloads/launchbad-revived-main/launchpad` again. If you want to use Launchpad but don’t want to disable System Integrity Protection, download [LaunchOS](https://launchosapp.com) instead.
+To uninstall, run `~/Downloads/launchbad-revived-main/launchpad` again. To clear the boot argument change, run `sudo nvram -d boot-args`. If you want to use Launchpad but don’t want to disable System Integrity Protection, download [LaunchOS](https://launchosapp.com) instead.
 
 ## Screenshot
 <img width="1920" alt="Launchpad" src="https://github.com/user-attachments/assets/2e8cee9f-997b-420d-8268-aa5b8997dc50" />

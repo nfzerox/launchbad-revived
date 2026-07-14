@@ -14,6 +14,39 @@ else
     exit 1
 fi
 
+if [ "$macos_version" -ge 27 ]; then
+    current_boot_args=$(nvram boot-args 2>/dev/null | sed 's/^boot-args[[:space:]]*//')
+    case " $current_boot_args " in
+        *" amfi_get_out_of_my_way=0x1 "*|*" amfi_get_out_of_my_way=1 "*) ;;
+        *)
+            printf 'AMFI is no longer permissive (missing boot-arg: amfi_get_out_of_my_way). Run the installer again.\n'
+            exit 1
+            ;;
+    esac
+    case " $current_boot_args " in
+        *" ipc_control_port_options=0 "*) ;;
+        *)
+            printf 'AMFI is no longer permissive (missing boot-arg: ipc_control_port_options=0). Run the installer again.\n'
+            exit 1
+            ;;
+    esac
+    case " $current_boot_args " in
+        *" -arm64e_preview_abi "*) ;;
+        *)
+            printf 'AMFI is no longer permissive (missing boot-arg: -arm64e_preview_abi). Run the installer again.\n'
+            exit 1
+            ;;
+    esac
+
+    installed_dock=/Users/Shared/.launchpad/Dock.app/Contents/MacOS/Dock
+    windowmanager_shim=/Users/Shared/.launchpad/Frameworks/WindowManagerShim.dylib
+    if ! otool -L "$installed_dock" 2>/dev/null | grep -q "$windowmanager_shim"; then
+        printf 'The installed Dock predates macOS 27 (or was installed on macOS 26 and this Mac was\n'
+        printf 'later updated to macOS 27). Run the installer again to patch it.\n'
+        exit 1
+    fi
+fi
+
 cp /System/Library/LaunchAgents/com.apple.Dock.plist /Users/Shared/.launchpad
 cp -R /System/Library/CoreServices/Dock.app/Contents/XPCServices /Users/Shared/.launchpad/Dock.app/Contents/
 if defaults read /Library/Preferences/FeatureFlags/Domain/SwiftUI.plist Solarium | grep -q "Enabled = 0"; then
