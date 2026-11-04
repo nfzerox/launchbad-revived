@@ -145,6 +145,20 @@ if [ "$macos_version" -ge 27 ]; then
     codesign -d --entitlements "$dock_ents" --xml ./assets/Dock.app 2>/dev/null
     codesign --force --sign - --entitlements "$dock_ents" "$installed_dock"
     rm -f "$dock_ents"
+
+    printf 'Re-signing XPCServices ad-hoc (preserving entitlements)...\n'
+    for xpc in /Users/Shared/.launchpad/Dock.app/Contents/XPCServices/*.xpc; do
+        if [ -d "$xpc" ]; then
+            xpc_ents=$(mktemp -t launchpad-xpc-ents)
+            codesign -d --entitlements "$xpc_ents" --xml "$xpc" 2>/dev/null || true
+            if [ -s "$xpc_ents" ]; then
+                codesign --force --sign - --entitlements "$xpc_ents" "$xpc"
+            else
+                codesign --force --sign - "$xpc"
+            fi
+            rm -f "$xpc_ents"
+        fi
+    done
 fi
 
 printf 'Printing signing information for Launchpad.app pre-extracted from UniversalMac_26.0_25A5306g_Restore.ipsw...\n'
