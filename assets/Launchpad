@@ -65,7 +65,7 @@ launchctl load /Users/Shared/.launchpad/com.apple.Dock.plist
 launchctl start com.apple.Dock.agent
 
 if defaults read /Library/Preferences/FeatureFlags/Domain/SwiftUI.plist Solarium | grep -q "Enabled = 0"; then
-    printf "Liquid Glass has been disabled. Control Center and Notification Center don't work correctly with Liquid Glass disabled, therefore relaunching them with Liquid Glass enabled.\n"
+    printf "Liquid Glass has been disabled. Control Center, Notification Center and Screen Capture don't work correctly with Liquid Glass disabled, therefore relaunching them with Liquid Glass enabled.\n"
     cp /System/Library/LaunchAgents/com.apple.controlcenter.plist /Users/Shared/.launchpad
     plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_ENABLED</key><string>SwiftUI/Solarium</string></dict>" /Users/Shared/.launchpad/com.apple.controlcenter.plist
     launchctl unload /Users/Shared/.launchpad/com.apple.controlcenter.plist
@@ -77,6 +77,11 @@ if defaults read /Library/Preferences/FeatureFlags/Domain/SwiftUI.plist Solarium
     launchctl unload /Users/Shared/.launchpad/com.apple.notificationcenterui.plist
     launchctl load /Users/Shared/.launchpad/com.apple.notificationcenterui.plist
     launchctl start com.apple.notificationcenterui.agent
+
+    cp /System/Library/LaunchAgents/com.apple.screencaptureui.plist /Users/Shared/.launchpad
+    plutil -insert EnvironmentVariables -xml "<dict><key>FEATUREFLAGS_ENABLED</key><string>SwiftUI/Solarium</string></dict>" /Users/Shared/.launchpad/com.apple.screencaptureui.plist
+    launchctl bootout gui/$(id -u)/com.apple.screencaptureui.agent 2>/dev/null || launchctl unload /Users/Shared/.launchpad/com.apple.screencaptureui.plist 2>/dev/null || true
+    launchctl bootstrap gui/$(id -u) /Users/Shared/.launchpad/com.apple.screencaptureui.plist 2>/dev/null || launchctl load /Users/Shared/.launchpad/com.apple.screencaptureui.plist 2>/dev/null || true
 else
     printf "Done!\n"
 fi
